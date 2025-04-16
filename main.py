@@ -1,11 +1,13 @@
-from fastapi import FastAPI
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
+from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
+from app import auth
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"message": "Blockstak Backend Running!", "api_key": os.getenv("NEWS_API_KEY")}
+@app.post("/token")
+def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    if not auth.authenticate_client(form_data.username, form_data.password):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid client credentials")
+
+    access_token = auth.create_access_token(data={"sub": form_data.username})
+    return {"access_token": access_token, "token_type": "bearer"}
