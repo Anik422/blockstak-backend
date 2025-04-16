@@ -10,7 +10,7 @@ router = APIRouter(prefix="/news", tags=["news"])
 
 @router.get("/", summary="Fetch all news with pagination")
 def get_news(page: int = 1, page_size: int = 10, user: str = Depends(get_current_user)):
-    url = f"https://newsapi.org/v2/everything?q=trump&page={page}&pageSize={page_size}&apiKey={config.NEWS_API_KEY}"
+    url = f"https://newsapi.org/v2/everything?q=latest&page={page}&pageSize={page_size}&apiKey={config.NEWS_API_KEY}"
     response = requests.get(url)
     if response.status_code != 200:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Error fetching news")

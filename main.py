@@ -2,12 +2,22 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from app import auth
 from app.routes import news
-
-app = FastAPI()
-
-app.include_router(news.router)
+from app.database import Base, engine
 
 
+app = FastAPI() # Create FastAPI instance
+
+app.include_router(news.router) # Include the news router
+
+Base.metadata.create_all(bind=engine) # Create the database tables
+
+
+# Define the root endpoint
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the API!"}
+
+# Define the token endpoint for client authentication
 @app.post("/token")
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
     if not auth.authenticate_client(form_data.username, form_data.password):

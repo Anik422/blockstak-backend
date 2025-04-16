@@ -10,4 +10,4 @@ CLIENT_SECRET = os.getenv("CLIENT_SECRET", "fallback-secret")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
 SECRET_KEY = "blockstak-secret-key"
 ALGORITHM = "HS256"
-print("CLIENT_ID from .env =", CLIENT_ID)
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./news_app.db")
