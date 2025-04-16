@@ -6,7 +6,7 @@ from app.database import Base
 class Source(Base):
     __tablename__ = "sources"
     
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(String, primary_key=True)
     name = Column(String, nullable=False)
     
     
