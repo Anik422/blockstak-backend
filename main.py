@@ -1,8 +1,12 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from app import auth
+from app.routes import news
 
 app = FastAPI()
+
+app.include_router(news.router)
+
 
 @app.post("/token")
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
