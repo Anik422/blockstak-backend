@@ -2,7 +2,9 @@ import os
 from dotenv import load_dotenv
 
 # Add this line to be explicit about pat
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'), override=True)
+load_dotenv(
+    dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env"), override=True
+)
 
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 CLIENT_ID = os.getenv("CLIENT_ID", "fallback-id")
