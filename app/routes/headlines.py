@@ -51,7 +51,7 @@ def get_top_headlines_by_source(source_id: str, user: str = Depends(get_current_
     }
 
 
-@router.get("/headlines/filter", summary="Fetch headlines by country and/or source")
+@router.get("/filter", summary="Fetch headlines by country and/or source")
 def filter_headlines(
     country: str = Query(None, description="Country code like 'us', 'gb', 'bd'"),
     source: str = Query(None, description="Source ID like 'bbc-news'"),

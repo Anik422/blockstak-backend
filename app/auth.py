@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from app import config
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -21,7 +21,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     Create a JWT access token.
     """
     to_encode = data.copy()
-    expire = datetime.utcnow() + (
+    expire = datetime.now(timezone.utc) + (
         expires_delta
         if expires_delta
         else timedelta(minutes=config.ACCESS_TOKEN_EXPIRE_MINUTES)

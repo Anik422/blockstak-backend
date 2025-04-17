@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi.responses import RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 from app import auth
 from app.routes import news
@@ -8,6 +8,17 @@ from app.database import Base, engine
 
 
 app = FastAPI()  # Create FastAPI instance
+
+
+# CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # For production, replace with specific origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 app.include_router(news.router)  # Include the news router
 
@@ -19,7 +30,7 @@ def redirect_to_docs():
     """
     Redirect to the API documentation.
     """
-    return RedirectResponse(url="/docs")
+    return {"message": "Welcome to the API. Visit /docs for documentation."}
 
 
 @app.post("/token")
