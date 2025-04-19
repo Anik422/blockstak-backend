@@ -11,6 +11,7 @@ def authenticate_client(client_id: str, client_secret: str):
     """
     Authenticate the client using client_id and client_secret.
     """
+    print(client_id, client_secret, config.CLIENT_ID, config.CLIENT_SECRET)
     if client_id == config.CLIENT_ID and client_secret == config.CLIENT_SECRET:
         return True
     return False
