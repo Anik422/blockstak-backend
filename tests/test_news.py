@@ -6,7 +6,9 @@ def test_get_news(client, token):
 
 
 def test_save_latest_news(client, token):
-    response = client.post("/news/save-latest", headers={"Authorization": f"Bearer {token}"})
+    response = client.post(
+        "/news/save-latest", headers={"Authorization": f"Bearer {token}"}
+    )
     assert response.status_code == 200
     assert response.json()["status"] == "success"
     assert "message" in response.json()

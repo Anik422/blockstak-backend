@@ -4,7 +4,7 @@ from app import config
 def test_token_valid_credentials(client):
     response = client.post(
         "/token",
-        data={"username": config.CLIENT_ID, "password": config.CLIENT_SECRET}, 
+        data={"username": config.CLIENT_ID, "password": config.CLIENT_SECRET},
     )
     assert response.status_code == 200
     assert "access_token" in response.json()
